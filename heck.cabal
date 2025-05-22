@@ -1,11 +1,8 @@
 cabal-version: 3.0
 name: heck
 version: 0.2025.5.22
-synopsis: TODO
-description:
-  TODO
-  TODO
-
+synopsis: Abstract unit test interface
+description: Heck provides an abstract unit test interface.
 category: Testing
 extra-doc-files:
   CHANGELOG.md
