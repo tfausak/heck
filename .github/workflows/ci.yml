@@ -99,6 +99,7 @@ jobs:
           name: ${{ github.sha }}-${{ matrix.os }}-${{ matrix.ghc }}
           path: artifact.tar
   release:
+    if: ${{ github.event_name == 'release' }}
     name: Release
     needs:
       - meta
@@ -111,10 +112,8 @@ jobs:
         with:
           name: ${{ github.sha }}-ubuntu-latest-9.12
       - run: tar --extract --file artifact.tar --verbose
-      - if: ${{ github.event_name == 'release' }}
-        uses: softprops/action-gh-release@v2
+      - uses: softprops/action-gh-release@v2
         with:
           files: artifact/${{ needs.meta.outputs.name }}-${{ needs.meta.outputs.version }}.tar.gz
-      - run: echo PUBLISH=${{ github.event_name == 'release' && '--publish' || '' }} >> $GITHUB_ENV
-      - run: cabal upload $PUBLISH --token '${{ secrets.HACKAGE_TOKEN }}' artifact/${{ needs.meta.outputs.name }}-${{ needs.meta.outputs.version }}.tar.gz
-      - run: cabal --http-transport=plain-http upload --documentation $PUBLISH --token '${{ secrets.HACKAGE_TOKEN }}' artifact/${{ needs.meta.outputs.name }}-${{ needs.meta.outputs.version }}-docs.tar.gz
+      - run: cabal upload --publish --token '${{ secrets.HACKAGE_TOKEN }}' artifact/${{ needs.meta.outputs.name }}-${{ needs.meta.outputs.version }}.tar.gz
+      - run: cabal --http-transport=plain-http upload --documentation --publish --token '${{ secrets.HACKAGE_TOKEN }}' artifact/${{ needs.meta.outputs.name }}-${{ needs.meta.outputs.version }}-docs.tar.gz
