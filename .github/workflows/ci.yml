@@ -65,6 +65,8 @@ jobs:
             os: ubuntu-latest
           - ghc: 9.12
             os: ubuntu-latest
+          - ghc: 9.14
+            os: ubuntu-latest
           - ghc: 9.12
             os: windows-latest
     steps:
