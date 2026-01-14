@@ -1,6 +1,6 @@
 cabal-version: 3.0
 name: heck
-version: 1.0.0.1
+version: 1.0.0.2
 synopsis: Abstract unit test interface
 description: Heck provides an abstract unit test interface.
 category: Testing
